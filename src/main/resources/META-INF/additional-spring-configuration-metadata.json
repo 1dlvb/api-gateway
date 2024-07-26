@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "jwt.secret.string",
+      "type": "java.lang.String",
+      "description": "Secret string for JWT."
+    },
+    {
+      "name": "jwt.secret.algorithm",
+      "type": "java.lang.String",
+      "description": "Algorithm for JWT."
+    }
+  ] }
