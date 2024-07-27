@@ -57,7 +57,12 @@ public class GatewayConfig {
                     .and()
                     .method("GET")
                     .filters(f -> f.filter(authenticationFilter))
-                    .uri(contractorServiceUri));
+                    .uri(contractorServiceUri))
+                .route(r -> r.path("/user-roles/**")
+                    .and()
+                    .method("GET")
+                    .filters(f -> f.filter(authenticationFilter))
+                    .uri(authServiceUri));
 
     }
 
@@ -99,8 +104,11 @@ public class GatewayConfig {
 
     private void addAdminRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/auth/**")
-                .filters(f -> f.filter(authenticationFilter))
-                .uri(authServiceUri));
+                        .filters(f -> f.filter(authenticationFilter))
+                        .uri(authServiceUri))
+                .route(r -> r.path("/roles/**")
+                        .filters(f -> f.filter(authenticationFilter))
+                        .uri(authServiceUri));
     }
 
 }
