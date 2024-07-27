@@ -12,6 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 @Component
@@ -35,11 +36,11 @@ public class JWTUtil {
         return extractClaims(token, Claims::getSubject);
     }
 
-    public String getRoleFromToken(String token) {
+    public List<String> getRolesFromToken(String token) {
         if (isTokenExpired(token)) {
             return null;
         } else {
-            return extractClaims(token, claims -> claims.get("role", String.class));
+            return extractClaims(token, claims -> claims.get("roles", List.class));
         }
 
     }
