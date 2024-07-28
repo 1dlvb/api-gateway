@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * An implementation of {@link RouteValidator} interface.
+ * @author Matushkin Anton
+ */
 @Service
 public class RouteValidatorImpl implements RouteValidator {
 

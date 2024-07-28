@@ -1,5 +1,9 @@
 package com.fintech.apigateway.util;
 
+/**
+ * Enum for handling roles.
+ * @author Matushkin Anton
+ */
 public enum Roles {
 
     USER,

@@ -9,6 +9,10 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration class for defining routes in the API Gateway.
+ * @author Matushkin Anton
+ */
 @Configuration
 @EnableHystrix
 @RequiredArgsConstructor
@@ -41,12 +45,20 @@ public class GatewayConfig {
         return routesBuilder.build();
     }
 
+    /**
+     * Adds authentication routes to the provided routes builder.
+     * @param routes the routes builder
+     */
     private void addAuthRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/auth/signin").uri(authServiceUri))
                 .route(r -> r.path("/auth/signup").uri(authServiceUri))
                 .route(r -> r.path("/auth/refresh-token").uri(authServiceUri));
     }
 
+    /**
+     * Adds user role routes to the provided routes builder.
+     * @param routes the routes builder
+     */
     private void addUserRoleRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/deal/**")
                     .and()
@@ -66,6 +78,10 @@ public class GatewayConfig {
 
     }
 
+    /**
+     * Adds credit or overdraft user role routes to the provided routes builder.
+     * @param routes the routes builder
+     */
     private void addCreditOrOverdraftUserRoleRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/deal/search")
                     .and()
@@ -75,6 +91,10 @@ public class GatewayConfig {
 
     }
 
+    /**
+     * Adds deal superuser role routes to the provided routes builder.
+     * @param routes the routes builder
+     */
     private void addDealSuperuserRoleRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/deal/**")
                     .filters(f -> f.filter(authenticationFilter))
@@ -88,6 +108,10 @@ public class GatewayConfig {
 
     }
 
+    /**
+     * Adds contractor RUS role routes to the provided routes builder.
+     * @param routes the routes builder
+     */
     private void addContractorRusRoleRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/contractor/search")
                 .and()
@@ -96,12 +120,20 @@ public class GatewayConfig {
                 .uri(contractorServiceUri));
     }
 
+    /**
+     * Adds contractor superuser routes to the provided routes builder.
+     * @param routes the routes builder
+     */
     private void addContractorSuperuserRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/contractor/**")
                 .filters(f -> f.filter(authenticationFilter))
                 .uri(contractorServiceUri));
     }
 
+    /**
+     * Adds admin routes to the provided routes builder.
+     * @param routes the routes builder
+     */
     private void addAdminRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route(r -> r.path("/auth/**")
                         .filters(f -> f.filter(authenticationFilter))

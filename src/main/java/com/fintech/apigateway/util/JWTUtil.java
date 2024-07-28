@@ -15,6 +15,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Utility class for handling JWT operations such as generating and validating tokens.
+ * @author Matushkin Anton
+ */
 @Component
 public class JWTUtil {
 
@@ -32,10 +36,20 @@ public class JWTUtil {
         this.key = new SecretKeySpec(secretBytes, algorithm);
     }
 
+    /**
+     * Extracts the username from the given token.
+     * @param token The token.
+     * @return The username.
+     */
     public String getUsernameFromToken(String token) {
         return extractClaims(token, Claims::getSubject);
     }
 
+    /**
+     * Extracts the roles from the given token.
+     * @param token The token.
+     * @return list of roles.
+     */
     public List<String> getRolesFromToken(String token) {
         if (isTokenExpired(token)) {
             return null;
@@ -45,6 +59,11 @@ public class JWTUtil {
 
     }
 
+    /**
+     * Checks if the given token is expired.
+     * @param token The token.
+     * @return True if the token is expired, false otherwise.
+     */
     public boolean isTokenExpired(String token) {
         try {
             return extractClaims(token, Claims::getExpiration).before(new Date());
@@ -53,6 +72,13 @@ public class JWTUtil {
         }
     }
 
+    /**
+     * Extracts claims from the given token using the provided function.
+     * @param token The token.
+     * @param claimsTFunction The function to apply on the claims.
+     * @param <T> The type of the claim.
+     * @return The extracted claim.
+     */
     private <T> T extractClaims(String token, Function<Claims, T> claimsTFunction) throws ExpiredJwtException {
             return claimsTFunction.apply(Jwts
                     .parser()
