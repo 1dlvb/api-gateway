@@ -9,5 +9,10 @@
       "name": "jwt.secret.algorithm",
       "type": "java.lang.String",
       "description": "Algorithm for JWT."
+    },
+    {
+      "name": "service.uri.deal",
+      "type": "java.lang.String",
+      "description": "An uri for deal microservice."
     }
   ] }
